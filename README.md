@@ -38,6 +38,8 @@ angular.module('app', ['jkuri.gallery']).
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
 <script type="text/javascript" src="src/js/ngGallery.js"></script>
 <script type="text/javascript" src="app.js"></script>
+</body>
+</html>
 ```
 
 That's all. 
