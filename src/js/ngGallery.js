@@ -73,18 +73,18 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 
 				image.onload = function () {
 					scope.loading = false;
-		      if (typeof this.complete === false || this.naturalWidth === 0) {
-		        deferred.reject();
-		      }
-		      deferred.resolve(image);
-			  };
-
-			  image.onerror = function () {
-		      deferred.reject();
-		    };
-
-		    image.src = scope.images[i].img;
-		    scope.loading = true;
+				        if (typeof this.complete === false || this.naturalWidth === 0) {
+				        	deferred.reject();
+				      	}
+				      	deferred.resolve(image);
+				};
+		
+				image.onerror = function () {
+					deferred.reject();
+				};
+				
+				image.src = scope.images[i].img;
+				scope.loading = true;
 
 				return deferred.promise;
 			};
