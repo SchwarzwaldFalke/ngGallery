@@ -7,7 +7,14 @@ Angular is only dependency (no jQuery).
 
 Check out [the live demo](http://demo.jankuri.com/ngGallery/)
 
-#### Installation
+Install
+-------
+
+#### With bower:
+
+    $ bower install ngGallery
+
+#### Example Configuration
 
 #### app.js
 ```js
