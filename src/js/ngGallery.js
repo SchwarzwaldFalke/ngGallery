@@ -1,6 +1,5 @@
-'use strict';
-
 angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeout', '$q', '$templateCache', function($document, $timeout, $q, $templateCache) {
+	'use strict';
 
 	var defaults = { 
 		baseClass   : 'ng-gallery',
@@ -94,7 +93,7 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 					scope.img = resp.src;
 					smartScroll(scope.index);
 				});
-			}
+			};
 
 			scope.changeImage = function (i) {
 				scope.index = i;
@@ -118,7 +117,7 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 					scope.index = scope.images.length;
 				}
 				showImage(scope.index);
-			}
+			};
 
 			scope.openGallery = function (i) {
 				if (typeof i !== undefined) {
