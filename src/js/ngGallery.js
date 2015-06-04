@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeout', '$templateCache', function($document, $timeout, $templateCache) {
+angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeout', '$q', '$templateCache', function($document, $timeout, $q, $templateCache) {
 
 	var defaults = { 
 		baseClass   : 'ng-gallery',
@@ -18,7 +18,6 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 	function setScopeValues(scope, attrs) {
 		scope.baseClass = scope.class || defaults.baseClass;
 		scope.thumbClass = scope.thumbClass || defaults.thumbClass;
-		scope.img = scope.images[0];
 	}
 
 	var template_url = defaults.templateUrl;
@@ -32,9 +31,10 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 	'<div class="ng-overlay" ng-show="opened">' +
 	'</div>' +
 	'<div class="ng-gallery-content" ng-show="opened">' +
+	'  <div class="uil-ring-css" ng-show="loading"><div></div></div>' + 
 	'  <a class="close" ng-click="closeGallery()">x</a>' +
 	'  <a class="nav-left" ng-click="prevImage()"><</a>' +
-	'  <img ng-src="{{ img.img }}" ng-click="nextImage()" />' +
+	'  <img ng-src="{{ img }}" ng-click="nextImage()" ng-show="!loading" />' +
 	'  <a class="nav-right" ng-click="nextImage()">></a>' +
 	'  <div class="ng-thumbnails-wrapper">' +
 	'    <div class="ng-thumbnails slide-left">' +
@@ -67,10 +67,41 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 			scope.thumb_wrapper_width = 0;
 			scope.thumbs_width = 0;
 
+			var loadImage = function (i) {
+				var deferred = $q.defer();
+				var image = new Image();
+
+				image.onload = function () {
+					scope.loading = false;
+		      if (typeof this.complete === false || this.naturalWidth === 0) {
+		        deferred.reject();
+		      }
+		      deferred.resolve(image);
+			  };
+
+			  image.onerror = function () {
+		      deferred.reject();
+		    };
+
+		    image.src = scope.images[i].img;
+		    scope.loading = true;
+
+				return deferred.promise;
+			};
+
+			var showImage = function (i) {
+				loadImage(scope.index).then(function(resp) {
+					scope.img = resp.src;
+					smartScroll(scope.index);
+				});
+			}
+
 			scope.changeImage = function (i) {
 				scope.index = i;
-				scope.img = scope.images[scope.index];
-				smartScroll(scope.index);
+				loadImage(scope.index).then(function(resp) {
+					scope.img = resp.src;
+					smartScroll(scope.index);
+				});
 			};
 
 			scope.nextImage = function () {
@@ -78,8 +109,7 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 				if (scope.index === scope.images.length) {
 					scope.index = 0;
 				}
-				scope.img = scope.images[scope.index];
-				smartScroll(scope.index);
+				showImage(scope.index);
 			};
 
 			scope.prevImage = function () {
@@ -87,14 +117,13 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 				if (scope.index < 0) {
 					scope.index = scope.images.length;
 				}
-				scope.img = scope.images[scope.index];
-				smartScroll(scope.index);
+				showImage(scope.index);
 			}
 
 			scope.openGallery = function (i) {
 				if (typeof i !== undefined) {
 					scope.index = i;
-					scope.img = scope.images[i];
+					showImage(scope.index);
 				}
 				scope.opened = true;
 

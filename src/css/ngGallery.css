@@ -41,6 +41,9 @@ img.ng-thumb {
 	text-decoration: none;
 	margin: 0 30px 0 0;
 	cursor: pointer;
+	position: fixed;
+	top: 5px;
+	right: 0;
 }
 
 .ng-gallery-content > a.nav-left, .ng-gallery-content > a.nav-right {
@@ -101,4 +104,111 @@ img.ng-thumb {
 .ng-gallery-content > .ng-thumbnails-wrapper > .ng-thumbnails > div > img.active {
 	transition: opacity 0.25s ease;
 	opacity: 1;
+}
+
+/* Loading - from http://loading.io */
+uiload {
+  display: inline-block;
+  position: relative; 
+}
+
+uiload > div {
+    position: relative; 
+}
+
+@-webkit-keyframes uil-ring-anim {
+  0% {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); 
+  }
+
+  100% {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg); 
+  } 
+}
+
+@-moz-keyframes uil-ring-anim {
+  0% {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); 
+  }
+
+  100% {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg); 
+    } 
+}
+
+@-ms-keyframes uil-ring-anim {
+  0% {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); 
+  }
+
+  100% {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg); 
+  } 
+}
+
+@keyframes uil-ring-anim {
+  0% {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); 
+  }
+
+  100% {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg); 
+  } 
+}
+
+.uil-ring-css {
+  background: none;
+  position: relative;
+  top: 0;
+  margin: 180px auto 0 auto;
+  width: 100px;
+  height: 100px; 
+}
+
+.uil-ring-css > div {
+    position: absolute;
+    display: block;
+    width: 80px;
+    height: 80px;
+    top: 20px;
+    left: 20px;
+    border-radius: 40px;
+    box-shadow: 0 6px 0 0 #fff;
+    -ms-animation: uil-ring-anim 1s linear infinite;
+    -moz-animation: uil-ring-anim 1s linear infinite;
+    -webkit-animation: uil-ring-anim 1s linear infinite;
+    -o-animation: uil-ring-anim 1s linear infinite;
+    animation: uil-ring-anim 1s linear infinite; 
 }
