@@ -5,6 +5,10 @@ Angular is only dependency (no jQuery).
 
 #### Example 
 
+Check out [the live demo](http://demo.jankuri.com/ngGallery/)
+
+#### Installation
+
 #### app.js
 ```js
 angular.module('app', ['jkuri.gallery']).
