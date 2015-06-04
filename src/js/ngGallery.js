@@ -3,14 +3,14 @@
 angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeout', '$templateCache', function($document, $timeout, $templateCache) {
 
 	var defaults = { 
-		baseClass 	: 'ng-gallery',
-		thumbClass 	: 'ng-thumb',
+		baseClass   : 'ng-gallery',
+		thumbClass  : 'ng-thumb',
 		templateUrl : 'ng-gallery.html'
 	};
 
 	var keys_codes = {
 		enter : 13,
-		esc		: 27,
+		esc   : 27,
 		left  : 37,
 		right : 39
 	};
@@ -23,28 +23,28 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 
 	var template_url = defaults.templateUrl;
 	// Set the default template
-  $templateCache.put(template_url,
-  		'<div class="{{ baseClass }}">' +
-  		'  <div ng-repeat="i in images">' +
-  		'    <img ng-src="{{ i.thumb }}" class="{{ thumbClass }}" ng-click="openGallery($index)" alt="Image {{ $index + 1 }}" />' +
-  		'  </div>' +
-  		'</div>' +
-      '<div class="ng-overlay" ng-show="opened">' +
-      '</div>' +
-      '<div class="ng-gallery-content" ng-show="opened">' +
-      '  <a class="close" ng-click="closeGallery()">x</a>' +
-      '  <a class="nav-left" ng-click="prevImage()"><</a>' +
-      '  <img ng-src="{{ img.img }}" ng-click="nextImage()" />' +
-      '  <a class="nav-right" ng-click="nextImage()">></a>' +
-      '  <div class="ng-thumbnails-wrapper">' +
-      '    <div class="ng-thumbnails slide-left">' +
-      '      <div ng-repeat="i in images">' + 
-      '        <img ng-src="{{ i.thumb }}" ng-class="{\'active\': index === $index}" ng-click="changeImage($index)" />' +
-      '      </div>' +
-      '    </div>' +
-      '  </div>' +
-      '</div>'
-  );
+  	$templateCache.put(template_url,
+	'<div class="{{ baseClass }}">' +
+	'  <div ng-repeat="i in images">' +
+	'    <img ng-src="{{ i.thumb }}" class="{{ thumbClass }}" ng-click="openGallery($index)" alt="Image {{ $index + 1 }}" />' +
+	'  </div>' +
+	'</div>' +
+	'<div class="ng-overlay" ng-show="opened">' +
+	'</div>' +
+	'<div class="ng-gallery-content" ng-show="opened">' +
+	'  <a class="close" ng-click="closeGallery()">x</a>' +
+	'  <a class="nav-left" ng-click="prevImage()"><</a>' +
+	'  <img ng-src="{{ img.img }}" ng-click="nextImage()" />' +
+	'  <a class="nav-right" ng-click="nextImage()">></a>' +
+	'  <div class="ng-thumbnails-wrapper">' +
+	'    <div class="ng-thumbnails slide-left">' +
+	'      <div ng-repeat="i in images">' + 
+	'        <img ng-src="{{ i.thumb }}" ng-class="{\'active\': index === $index}" ng-click="changeImage($index)" />' +
+	'      </div>' +
+	'    </div>' +
+	'  </div>' +
+	'</div>'
+	);
 
 	return {
 		restrict: 'EA',
@@ -52,8 +52,8 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 			images: '='
 		},
 		templateUrl: function(element, attrs) {
-        return attrs.templateUrl || defaults.templateUrl;
-    },
+        		return attrs.templateUrl || defaults.templateUrl;
+    		},
 		link: function (scope, element, attrs) {
 			setScopeValues(scope, attrs);
 
@@ -137,14 +137,13 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 			var smartScroll = function (index) {
 				$timeout(function() {
 					var len = scope.images.length,
-						 	width = scope.thumbs_width,
-							current_scroll = $thumbwrapper[0].scrollLeft,
-							item_scroll = parseInt(width / len, 10),
-							i = index + 1;
+				 	    width = scope.thumbs_width,
+					    current_scroll = $thumbwrapper[0].scrollLeft,
+					    item_scroll = parseInt(width / len, 10),
+					    i = index + 1;
 
-			    $thumbwrapper[0].scrollLeft = 0;
-			    $thumbwrapper[0].scrollLeft = i * item_scroll - (2 * item_scroll);
-					//$thumbwrapper[0].scrollLeft += center;
+					$thumbwrapper[0].scrollLeft = 0;
+					$thumbwrapper[0].scrollLeft = i * item_scroll - (2 * item_scroll);
 				}, 100);
 			};
 
