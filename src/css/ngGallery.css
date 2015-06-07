@@ -78,6 +78,15 @@ img.ng-thumb {
   transform: translateY(-50%);
 }
 
+.ng-gallery-content > img.effect {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+
 .ng-gallery-content > .ng-thumbnails-wrapper {
   width: 400px;
   height: 70px;
