@@ -34,7 +34,7 @@ angular.module('jkuri.gallery', [])
 	'</div>' +
 	'<div class="ng-gallery-content" ng-show="opened">' +
 	'  <div class="uil-ring-css" ng-show="loading"><div></div></div>' + 
-	'  <a class="close" ng-click="closeGallery()">x</a>' +
+	'  <a class="close-popup" ng-click="closeGallery()">x</a>' +
 	'  <a class="nav-left" ng-click="prevImage()"><</a>' +
 	'  <img ng-src="{{ img }}" ng-click="nextImage()" ng-show="!loading" />' +
 	'  <a class="nav-right" ng-click="nextImage()">></a>' +
