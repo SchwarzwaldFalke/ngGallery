@@ -1,4 +1,6 @@
-angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeout', '$q', '$templateCache', function($document, $timeout, $q, $templateCache) {
+angular.module('jkuri.gallery', [])
+
+.directive('ngGallery', ['$document', '$timeout', '$q', '$templateCache', function($document, $timeout, $q, $templateCache) {
 	'use strict';
 
 	var defaults = { 
@@ -17,6 +19,7 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 	function setScopeValues(scope, attrs) {
 		scope.baseClass = scope.class || defaults.baseClass;
 		scope.thumbClass = scope.thumbClass || defaults.thumbClass;
+		scope.thumbsNum = scope.thumbsNum || 3; // should be odd
 	}
 
 	var template_url = defaults.templateUrl;
@@ -48,13 +51,18 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 	return {
 		restrict: 'EA',
 		scope: {
-			images: '='
+			images: '=',
+			thumbsNum: '@'
 		},
 		templateUrl: function(element, attrs) {
         		return attrs.templateUrl || defaults.templateUrl;
     		},
 		link: function (scope, element, attrs) {
 			setScopeValues(scope, attrs);
+
+			if (scope.thumbsNum >= 11) {
+				scope.thumbsNum = 11;
+			}
 
 			var $body = $document.find('body');
 			var $thumbwrapper = angular.element(document.querySelectorAll('.ng-thumbnails-wrapper'));
@@ -127,8 +135,10 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 				scope.opened = true;
 
 				$timeout(function() {
-					scope.thumbs_width = calculateThumbsWidth();
-					$thumbnails.css({ width: scope.thumbs_width + 'px' });
+					var calculatedWidth = calculateThumbsWidth();
+					scope.thumbs_width = calculatedWidth.width;
+					$thumbnails.css({ width: calculatedWidth.width + 'px' });
+					$thumbwrapper.css({ width: calculatedWidth.visible_width + 'px' });
 					smartScroll(scope.index);
 				});
 			};
@@ -154,12 +164,17 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 			});
 
 			var calculateThumbsWidth = function () {
-				var width = 0;
+				var width = 0,
+					visible_width = 0;
 				angular.forEach($thumbnails.find('img'), function(thumb) {
 					width += thumb.clientWidth;
 					width += 10; // margin-right
+					visible_width = thumb.clientWidth + 10;
 				});
-				return width;
+				return {
+					width: width,
+					visible_width: visible_width * scope.thumbsNum
+				};
 			};
 
 			var smartScroll = function (index) {
@@ -168,10 +183,11 @@ angular.module('jkuri.gallery', []).directive('ngGallery', ['$document', '$timeo
 				 	    width = scope.thumbs_width,
 					    current_scroll = $thumbwrapper[0].scrollLeft,
 					    item_scroll = parseInt(width / len, 10),
-					    i = index + 1;
+					    i = index + 1,
+					    s = Math.ceil(len / i);
 
 					$thumbwrapper[0].scrollLeft = 0;
-					$thumbwrapper[0].scrollLeft = i * item_scroll - (2 * item_scroll);
+					$thumbwrapper[0].scrollLeft = i * item_scroll - (s * item_scroll);
 				}, 100);
 			};
 
