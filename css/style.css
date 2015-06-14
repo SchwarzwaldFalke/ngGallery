@@ -1,0 +1,56 @@
+* { 
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto Slab', serif;
+    padding: 40px;
+    font-size: 14px; 
+}
+
+h1 { 
+    font-size: 32px;
+    padding: 0 0 0 20px;
+}
+
+h2 {
+    font-size: 18px;
+    padding: 10px 0 0 20px;
+}
+
+input {
+    width: 200px;
+    padding: 5px;
+    outline: none;
+    margin-top: 10px;
+}
+
+.example {
+    margin: 20px; 
+}
+
+.example.bordered {
+    padding: 10px;
+    border: 1px solid #d4d4d4;
+    border-radius: 3px; 
+}
+
+.example h4 {
+    font-size: 16px;
+    margin: 0 0 10px 0;
+}
+
+.example p {
+    margin: 10px 0;
+}
+
+.footer {
+    width: 200px;
+    text-align: center;
+    margin: 100px auto 100px auto;
+}
+
+a {
+    color: #ff5c5b;
+}

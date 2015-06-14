@@ -35,7 +35,6 @@ img.ng-thumb {
 
 .ng-gallery-content > a.close-popup {
   font-size: 42px;
-  font-weight: bold;
   float: right;
   color: #fff;
   text-decoration: none;
@@ -76,6 +75,7 @@ img.ng-thumb {
   margin: 0 auto 0 auto;
   top: 50%;
   transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
 }
 
 .ng-gallery-content > img.effect {
@@ -83,7 +83,7 @@ img.ng-thumb {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
+    from { opacity: 0.3; }
       to { opacity: 1; }
 }
 
