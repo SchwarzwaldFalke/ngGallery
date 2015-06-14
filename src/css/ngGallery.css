@@ -69,7 +69,8 @@ img.ng-thumb {
 
 .ng-gallery-content > img {
   height: auto;
-  max-width: inherit;
+  max-height: calc(100% - 150px);
+  max-width: calc(100% - 100px);
   position: relative;
   display: block;
   margin: 0 auto 0 auto;
