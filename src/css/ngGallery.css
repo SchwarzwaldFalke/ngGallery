@@ -77,6 +77,7 @@ img.ng-thumb {
   top: 50%;
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
+  cursor: pointer;
 }
 
 .ng-gallery-content > img.effect {
@@ -86,6 +87,19 @@ img.ng-thumb {
 @keyframes fadeIn {
     from { opacity: 0.3; }
       to { opacity: 1; }
+}
+
+.ng-gallery-content > span.info-text {
+  color: #fff;
+  display: inline-block;
+  width: 100%;
+  height: 20px;
+  font-weight: bold;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 100px;
 }
 
 .ng-gallery-content > .ng-thumbnails-wrapper {
