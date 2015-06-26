@@ -124,7 +124,7 @@ angular.module('jkuri.gallery', [])
 			scope.prevImage = function () {
 				scope.index -= 1;
 				if (scope.index < 0) {
-					scope.index = scope.images.length;
+					scope.index = scope.images.length - 1;
 				}
 				showImage(scope.index);
 			};
