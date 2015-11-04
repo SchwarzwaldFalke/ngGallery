@@ -67,6 +67,13 @@ img.ng-thumb {
     transform: translateY(-50%);
 }
 
+.ng-gallery-content > a.nav-delete {
+    position: fixed;
+    right: 30px;
+    top: 90%;
+    transform: translateY(-50%);
+}
+
 .ng-gallery-content > img {
     height: auto;
     max-height: calc(100% - 150px);
