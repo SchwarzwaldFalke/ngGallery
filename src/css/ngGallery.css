@@ -45,7 +45,7 @@ img.ng-thumb {
     right: 0;
 }
 
-.ng-gallery-content > a.nav-left, .ng-gallery-content > a.nav-right {
+.ng-gallery-content > a.nav-left, .ng-gallery-content > a.nav-right, .ng-gallery-content > a.nav-delete {
     color: #fff;
     text-decoration: none;
     font-size: 60px;
