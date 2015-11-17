@@ -27,9 +27,13 @@ angular.module('jkuri.gallery', [])
         // Set the default template
         $templateCache.put(template_url,
             '<div class="{{ baseClass }}">' +
+            '<div class="{{baseClass}}-arrow {{baseClass}}-arrow-left"><i class="fa fa-arrow-left"></i></div>' +
+            '<div class="{{baseClass}}-arrow {{baseClass}}-arrow-right"><i class="fa fa-arrow-right"></i></div>' +
+            '<div class="{{baseClass}}-thumb-wrapper">' +
             '  <div ng-repeat="i in images">' +
             '    <img ng-src="{{ i.thumb }}" class="{{ thumbClass }}" ng-click="openGallery($index)" alt="Image {{ $index + 1 }}" />' +
             '  </div>' +
+            '</div>' +
             '</div>' +
             '<div class="ng-overlay" ng-show="opened">' +
             '</div>' +

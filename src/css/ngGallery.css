@@ -252,3 +252,39 @@ uiload > div {
     -o-animation: uil-ring-anim 1s linear infinite;
     animation: uil-ring-anim 1s linear infinite;
 }
+
+.ng-gallery-arrow {
+    height: 102px;
+    float: left;
+    width: 50px;
+    margin: 2px 2px 0 0;
+    text-align: center;
+    position: relative;
+    border: 1px solid #fe781e;
+    color: #fe781e;
+    cursor: pointer;
+    transition: color 1s ease, border 1s ease;
+}
+
+.ng-gallery-arrow:hover {
+    border: 1px solid #e66d1c;
+    color: #e66d1c;
+}
+
+.ng-gallery-arrow i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.ng-gallery-arrow-left {
+    float: left;
+
+}
+
+.ng-gallery-arrow-right {
+    float: right;
+
+}
