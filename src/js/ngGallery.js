@@ -1,10 +1,9 @@
 angular.module('jkuri.gallery', [])
 
-    .directive('ngGallery', ['$document', '$timeout', '$q', '$templateCache', function ($document, $timeout, $q, $templateCache) {
+    .directive('ngGallery', ['$document', '$timeout', '$q', '$templateCache', '$window', function ($document, $timeout, $q, $templateCache, $window) {
         'use strict';
 
         var defaults = {
-            baseClass: 'ng-gallery',
             thumbClass: 'ng-thumb',
             templateUrl: 'ng-gallery.html'
         };
@@ -17,7 +16,6 @@ angular.module('jkuri.gallery', [])
         };
 
         function setScopeValues(scope, attrs) {
-            scope.baseClass = scope.class || defaults.baseClass;
             scope.thumbClass = scope.thumbClass || defaults.thumbClass;
             scope.thumbsNum = scope.thumbsNum || 3; // should be odd
             scope.deletable = attrs.deletable || false;
@@ -27,7 +25,7 @@ angular.module('jkuri.gallery', [])
         var template_url = defaults.templateUrl;
         // Set the default template
         $templateCache.put(template_url,
-            '<div class="{{ baseClass }}">' +
+            '<div class="ng-gallery">' +
             '<div class="ng-gallery-arrow ng-gallery-arrow-left" ng-class="{\'ng-gallery-arrow-disabled\':!canPaginateLeft}"><i class="fa fa-arrow-left"></i></div>' +
             '<div class="ng-gallery-arrow ng-gallery-arrow-right" ng-class="{\'ng-gallery-arrow-disabled\':!canPaginateRight}"><i class="fa fa-arrow-right"></i></div>' +
             '<div class="ng-gallery-thumb-wrapper">' +
@@ -58,13 +56,13 @@ angular.module('jkuri.gallery', [])
 
         var previewPaginator = {
             page: 1,
-            elementsPerPage: 15,
+            elementsPerPage: 0,
             scope: null,
             updatePreview: function () {
                 $timeout(function () {
                     var previews = [],
                         startIndex = previewPaginator.elementsPerPage * (previewPaginator.page - 1),
-                        endIndex = previewPaginator.elementsPerPage * previewPaginator.page;
+                        endIndex = (previewPaginator.elementsPerPage * previewPaginator.page - 1);
                     previewPaginator.images.forEach(function (value, index) {
                         if (index >= startIndex && index <= endIndex) {
                             value.number = index;
@@ -79,7 +77,11 @@ angular.module('jkuri.gallery', [])
             setImages: function (images) {
                 this.images = images;
             },
-            init: function (scope, images) {
+            setElementsPerPage: function (value) {
+                previewPaginator.elementsPerPage = value;
+            },
+            init: function (scope, images, elementsPerPage) {
+                this.setElementsPerPage(elementsPerPage)
                 this.scope = scope;
                 this.setImages(images);
                 this.updatePreview();
@@ -102,6 +104,9 @@ angular.module('jkuri.gallery', [])
             },
             canPaginateRight: function () {
                 return (previewPaginator.images.length > previewPaginator.page * previewPaginator.elementsPerPage);
+            },
+            calcElementsPerPage: function (width) {
+                return Math.floor((width - 104) / 52) * 2;
             }
         };
 
@@ -117,17 +122,24 @@ angular.module('jkuri.gallery', [])
             link: function (scope, element, attrs) {
                 setScopeValues(scope, attrs);
 
+                var gallaryElement = element.find('.ng-gallery');
+
                 scope.$watch('images', function (newVal, oldVal) {
                     if (newVal) {
-                        previewPaginator.init(scope, newVal);
+                        var elementsPerPage = previewPaginator.calcElementsPerPage(gallaryElement.width());
+                        previewPaginator.init(scope, newVal, elementsPerPage);
                     }
+                });
+
+                angular.element($window).bind('resize', function stickyNavResize() {
+                    previewPaginator.setElementsPerPage(previewPaginator.calcElementsPerPage(gallaryElement.width()));
+                    previewPaginator.updatePreview();
                 });
 
                 scope.$watch('previewImages', function () {
                     scope.canPaginateLeft = previewPaginator.canPaginateLeft();
                     scope.canPaginateRight = previewPaginator.canPaginateRight();
                 });
-
 
 
                 if (scope.thumbsNum >= 11) {
