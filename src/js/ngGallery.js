@@ -219,7 +219,6 @@ angular.module('jkuri.gallery', [])
                 };
 
                 scope.openGallery = function (i) {
-                    console.log(i)
                     if (typeof i !== undefined) {
                         scope.index = i;
                         showImage(scope.index);
