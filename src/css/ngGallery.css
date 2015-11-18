@@ -292,3 +292,13 @@ uiload > div {
     float: right;
 
 }
+
+.ng-gallery-arrow-disabled {
+    border: 1px solid #333333;
+    color: #333333;
+}
+
+.ng-gallery-arrow-disabled:hover {
+    border: 1px solid #000000;
+    color: #000000;
+}

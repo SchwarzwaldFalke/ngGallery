@@ -21,17 +21,18 @@ angular.module('jkuri.gallery', [])
             scope.thumbClass = scope.thumbClass || defaults.thumbClass;
             scope.thumbsNum = scope.thumbsNum || 3; // should be odd
             scope.deletable = attrs.deletable || false;
+            scope.previewImages = [];
         }
 
         var template_url = defaults.templateUrl;
         // Set the default template
         $templateCache.put(template_url,
             '<div class="{{ baseClass }}">' +
-            '<div class="{{baseClass}}-arrow {{baseClass}}-arrow-left"><i class="fa fa-arrow-left"></i></div>' +
-            '<div class="{{baseClass}}-arrow {{baseClass}}-arrow-right"><i class="fa fa-arrow-right"></i></div>' +
-            '<div class="{{baseClass}}-thumb-wrapper">' +
-            '  <div ng-repeat="i in images">' +
-            '    <img ng-src="{{ i.thumb }}" class="{{ thumbClass }}" ng-click="openGallery($index)" alt="Image {{ $index + 1 }}" />' +
+            '<div class="ng-gallery-arrow ng-gallery-arrow-left" ng-class="{\'ng-gallery-arrow-disabled\':!canPaginateLeft}"><i class="fa fa-arrow-left"></i></div>' +
+            '<div class="ng-gallery-arrow ng-gallery-arrow-right" ng-class="{\'ng-gallery-arrow-disabled\':!canPaginateRight}"><i class="fa fa-arrow-right"></i></div>' +
+            '<div class="ng-gallery-thumb-wrapper">' +
+            '  <div ng-repeat="i in previewImages">' +
+            '    <img ng-src="{{ i.thumb }}" class="{{ thumbClass }}" ng-click="openGallery(i.number)" alt="Image {{ $index + 1 }}" />' +
             '  </div>' +
             '</div>' +
             '</div>' +
@@ -55,6 +56,55 @@ angular.module('jkuri.gallery', [])
             '</div>'
         );
 
+        var previewPaginator = {
+            page: 1,
+            elementsPerPage: 15,
+            scope: null,
+            updatePreview: function () {
+                $timeout(function () {
+                    var previews = [],
+                        startIndex = previewPaginator.elementsPerPage * (previewPaginator.page - 1),
+                        endIndex = previewPaginator.elementsPerPage * previewPaginator.page;
+                    previewPaginator.images.forEach(function (value, index) {
+                        if (index >= startIndex && index <= endIndex) {
+                            value.number = index;
+                            previews.push(value);
+                        }
+                    });
+                    previewPaginator.scope.previewImages = previews;
+                    previewPaginator.scope.$apply();
+                }, 0);
+
+            },
+            setImages: function (images) {
+                this.images = images;
+            },
+            init: function (scope, images) {
+                this.scope = scope;
+                this.setImages(images);
+                this.updatePreview();
+            },
+            images: [],
+            nextPage: function () {
+                if (previewPaginator.canPaginateRight()) {
+                    this.page++;
+                    this.updatePreview()
+                }
+            },
+            previousPage: function () {
+                if (this.canPaginateLeft()) {
+                    this.page--;
+                    this.updatePreview()
+                }
+            },
+            canPaginateLeft: function () {
+                return previewPaginator.page > 1;
+            },
+            canPaginateRight: function () {
+                return (previewPaginator.images.length > previewPaginator.page * previewPaginator.elementsPerPage);
+            }
+        };
+
         return {
             restrict: 'EA',
             scope: {
@@ -67,11 +117,34 @@ angular.module('jkuri.gallery', [])
             link: function (scope, element, attrs) {
                 setScopeValues(scope, attrs);
 
+                scope.$watch('images', function (newVal, oldVal) {
+                    if (newVal) {
+                        previewPaginator.init(scope, newVal);
+                    }
+                });
+
+                scope.$watch('previewImages', function () {
+                    scope.canPaginateLeft = previewPaginator.canPaginateLeft();
+                    scope.canPaginateRight = previewPaginator.canPaginateRight();
+                });
+
+
+
                 if (scope.thumbsNum >= 11) {
                     scope.thumbsNum = 11;
                 }
 
                 var $body = $document.find('body');
+                var $previewNextButton = element.find('.ng-gallery-arrow-right'),
+                    $previewPrevButton = element.find('.ng-gallery-arrow-left');
+                $previewNextButton.bind('click', function () {
+                    previewPaginator.nextPage();
+                });
+                $previewPrevButton.bind('click', function () {
+                    previewPaginator.previousPage();
+                });
+
+
                 var $thumbwrapper = angular.element(document.querySelectorAll('.ng-thumbnails-wrapper'));
                 var $thumbnails = angular.element(document.querySelectorAll('.ng-thumbnails'));
 
@@ -146,6 +219,7 @@ angular.module('jkuri.gallery', [])
                 };
 
                 scope.openGallery = function (i) {
+                    console.log(i)
                     if (typeof i !== undefined) {
                         scope.index = i;
                         showImage(scope.index);
