@@ -51,6 +51,18 @@ img.ng-thumb {
   right: 0;
 }
 
+.ng-gallery-content > a.download-image {
+  font-size: 42px;
+  float: right;
+  color: #fff;
+  text-decoration: none;
+  margin: 0 30px 0 0;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 63px;
+}
+
 .ng-gallery-content > a.nav-left, .ng-gallery-content > a.nav-right {
   color: #fff;
   text-decoration: none;
