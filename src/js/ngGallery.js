@@ -32,7 +32,7 @@ angular.module('jkuri.gallery', [])
 	'</div>' +
 	'<div class="ng-overlay" ng-show="opened">' +
 	'</div>' +
-	'<div class="ng-gallery-content" ng-show="opened">' +
+	'<div class="ng-gallery-content" ng-show="opened" unselectable="on" ng-swipe-left="nextImage()" ng-swipe-right="prevImage()">' +
 	'  <div class="uil-ring-css" ng-show="loading"><div></div></div>' + 
 	'  <a class="close-popup" ng-click="closeGallery()"><i class="fa fa-close"></i></a>' +
 	'  <a class="nav-left" ng-click="prevImage()"><i class="fa fa-angle-left"></i></a>' +
