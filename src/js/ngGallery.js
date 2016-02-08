@@ -117,10 +117,7 @@ angular.module('jkuri.gallery', [])
 
 			scope.changeImage = function (i) {
 				scope.index = i;
-				loadImage(scope.index).then(function(resp) {
-					scope.img = resp.src;
-					smartScroll(scope.index);
-				});
+                		showImage(scope.index);
 			};
 
 			scope.nextImage = function () {
