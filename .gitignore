@@ -1,2 +1,4 @@
 /bower_components/
 index.html
+#Allow index.html inside examples
+!examples/**/index.html
