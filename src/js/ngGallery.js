@@ -111,11 +111,13 @@
 				};
 
 				scope.showImageDownloadButton = function () {
+					if(scope.images[scope.index] == null ||  scope.images[scope.index].downloadSrc == null) return
 					var image = scope.images[scope.index];
 					return angular.isDefined(image.downloadSrc) && 0 < image.downloadSrc.length;
 				};
 
 				scope.getImageDownloadSrc = function () {
+					if(scope.images[scope.index] == null ||  scope.images[scope.index].downloadSrc == null) return
 					return scope.images[scope.index].downloadSrc;
 				};
 
