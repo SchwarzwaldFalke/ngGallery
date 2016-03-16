@@ -71,8 +71,8 @@
 				}
 
 				var $body = $document.find('body');
-				var $thumbwrapper = angular.element(document.querySelectorAll('.ng-thumbnails-wrapper'));
-				var $thumbnails = angular.element(document.querySelectorAll('.ng-thumbnails'));
+				var $thumbwrapper = element.find('.ng-thumbnails-wrapper');
+				var $thumbnails = element.find('.ng-thumbnails');
 
 				scope.index = 0;
 				scope.opened = false;
