@@ -204,7 +204,6 @@
 					$timeout(function () {
 						var len = scope.images.length,
 							width = scope.thumbs_width,
-							current_scroll = $thumbwrapper[0].scrollLeft,
 							item_scroll = parseInt(width / len, 10),
 							i = index + 1,
 							s = Math.ceil(len / i);
