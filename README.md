@@ -20,6 +20,7 @@ Install
 ```js
 angular.module('app', ['jkuri.gallery']).
   controller('Ctrl', function($scope, $document) {
+    var self = this;
     self.images = [
       {thumb: 'images/thumbs/1.jpg', img: 'images/1.jpg'},
 		  {thumb: 'images/thumbs/2.jpg', img: 'images/2.jpg'},
