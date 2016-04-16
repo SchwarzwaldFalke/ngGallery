@@ -1,0 +1,10 @@
+body {
+	margin: 0;
+	font-family: Helvetica,Arial,sans-serif;
+}
+
+.content {
+	width: 600px;
+	height: 100%;
+	margin: 100px auto 0 auto;
+}

@@ -1,10 +1,7 @@
 (function () {
     'use-strict';
-
     angular.module('jkuri.gallery', []).directive('ngGallery', ngGallery);
-
     ngGallery.$inject = ['$document', '$timeout', '$q', '$templateCache'];
-
     function ngGallery($document, $timeout, $q, $templateCache) {
 
         var defaults = {
@@ -19,6 +16,34 @@
             left: 37,
             right: 39
         };
+
+        function getImagesFromHtml(scope, transcludeElements) {
+            angular.forEach(transcludeElements, function (element) {
+                element = angular.element(element);
+                if (element.hasClass("ng-image") && element.attr("src")) {
+                    //Get data attribues
+                    var image = {};
+                    image.img = element.attr("src");
+
+                    if (element.attr("data-thumb")) {
+                        image.thumb = element.attr("data-thumb");
+                    }
+
+                    if (element.attr("data-download-src")) {
+                        image.downloadSrc = element.attr("data-download-src");
+                    }
+
+                    if (element.attr("data-description")) {
+                        image.description = element.attr("data-description");
+                    }
+                    if (scope.prependHtmlImages) {
+                        scope.images.unshift(image);
+                    } else {
+                        scope.images.push(image);
+                    }
+                }
+            });
+        }
 
         function setScopeValues(scope, attrs) {
             scope.baseClass = scope.class || defaults.baseClass;
@@ -58,8 +83,10 @@
             restrict: 'EA',
             scope: {
                 images: '=',
-                thumbsNum: '@'
+                thumbsNum: '@',
+                prependHtmlImages: '='
             },
+            transclude: true,
             controller: [
                 '$scope',
                 function ($scope) {
@@ -71,7 +98,9 @@
             templateUrl: function (element, attrs) {
                 return attrs.templateUrl || defaults.templateUrl;
             },
-            link: function (scope, element, attrs) {
+            link: function (scope, element, attrs, ctrl, transclude) {
+                getImagesFromHtml(scope, transclude());
+
                 setScopeValues(scope, attrs);
 
                 if (scope.thumbsNum >= 11) {
@@ -161,7 +190,7 @@
                         var calculatedWidth = calculateThumbsWidth();
                         scope.thumbs_width = calculatedWidth.width;
                         //Add 1px, otherwise some browsers move the last image into a new line
-                        var thumbnailsWidth = calculatedWidth.width+1;
+                        var thumbnailsWidth = calculatedWidth.width + 1;
                         $thumbnails.css({width: thumbnailsWidth + 'px'});
                         $thumbwrapper.css({width: calculatedWidth.visible_width + 'px'});
                         smartScroll(scope.index);

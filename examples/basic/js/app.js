@@ -1,7 +1,7 @@
 // Code goes here
-var myApp = angular.module('myApp', ['ngTouch','jkuri.gallery']);
+var myApp = angular.module('myApp', ['ngTouch', 'jkuri.gallery']);
 
-myApp.controller('testController', ['$scope',function($scope) {
+myApp.controller('testController', ['$scope', function ($scope) {
     $scope.images = [
         {
             thumb: 'images/thumbs/1.jpg',
@@ -20,9 +20,11 @@ myApp.controller('testController', ['$scope',function($scope) {
             thumb: 'images/thumbs/3.jpg',
             img: 'images/3.jpg',
             downloadSrc: 'images/3.jpg',
-            description: 'Image 3'},
+            description: 'Image 3'
+        },
         {
             thumb: 'images/thumbs/4.jpg',
-            img: 'images/4.jpg',  description: 'Image 4'}
+            img: 'images/4.jpg', description: 'Image 4'
+        }
     ];
 }]);
