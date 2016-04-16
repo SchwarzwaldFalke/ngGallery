@@ -6,6 +6,8 @@ Angular is only dependency (no jQuery).
 #### Example 
 
 * [Basic example](https://rawgit.bessei-it.eu/SchwarzwaldFalke/ngGallery/ngGalleryFromHtmlImages/examples/basic/index.html)
+* [Images from html](https://rawgit.bessei-it.eu/SchwarzwaldFalke/ngGallery/ngGalleryFromHtmlImages/examples/imagesFromHtml/index.html)
+
 
 Install
 -------
