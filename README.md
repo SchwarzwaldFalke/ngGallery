@@ -8,7 +8,7 @@ Angular is only dependency (no jQuery).
 Check out [the live demo](http://demo.jankuri.com/ngGallery/)
 
 Or one of the examples:
-* [Basic example](https://rawgit.com/jkuri/ngGallery/examples/examples/basic/index.html)
+* [Basic example](https://rawgit.bessei-it.eu/jkuri/ngGallery/examples/examples/basic/index.html)
 
 Install
 -------
