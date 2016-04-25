@@ -58,7 +58,8 @@
             restrict: 'EA',
             scope: {
                 images: '=',
-                thumbsNum: '@'
+                thumbsNum: '@',
+                hideOverflow: '='
             },
             controller: [
                 '$scope',
@@ -156,12 +157,15 @@
                         showImage(scope.index);
                     }
                     scope.opened = true;
+                    if (scope.hideOverflow) {
+                        $('body').css({overflow: 'hidden'});
+                    }
 
                     $timeout(function () {
                         var calculatedWidth = calculateThumbsWidth();
                         scope.thumbs_width = calculatedWidth.width;
                         //Add 1px, otherwise some browsers move the last image into a new line
-                        var thumbnailsWidth = calculatedWidth.width+1;
+                        var thumbnailsWidth = calculatedWidth.width + 1;
                         $thumbnails.css({width: thumbnailsWidth + 'px'});
                         $thumbwrapper.css({width: calculatedWidth.visible_width + 'px'});
                         smartScroll(scope.index);
@@ -170,6 +174,9 @@
 
                 scope.closeGallery = function () {
                     scope.opened = false;
+                    if (scope.hideOverflow) {
+                        $('body').css({overflow: ''});
+                    }
                 };
 
                 $body.bind('keydown', function (event) {
