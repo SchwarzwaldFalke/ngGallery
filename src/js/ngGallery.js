@@ -10,6 +10,7 @@
         var defaults = {
             baseClass: 'ng-gallery',
             thumbClass: 'ng-thumb',
+            thumbsNum:  3, // should be odd
             templateUrl: 'ng-gallery.html'
         };
 
@@ -23,7 +24,7 @@
         function setScopeValues(scope, attrs) {
             scope.baseClass = scope.class || defaults.baseClass;
             scope.thumbClass = scope.thumbClass || defaults.thumbClass;
-            scope.thumbsNum = scope.thumbsNum || 3; // should be odd
+            scope.thumbsNum = scope.thumbsNum || defaults.thumbsNum;
         }
 
         var template_url = defaults.templateUrl;
@@ -59,6 +60,8 @@
             scope: {
                 images: '=',
                 thumbsNum: '@',
+                baseClass: '@',
+                thumbsClass: '@',
                 hideOverflow: '='
             },
             controller: [
