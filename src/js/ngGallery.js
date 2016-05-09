@@ -59,7 +59,8 @@
             scope: {
                 images: '=',
                 thumbsNum: '@',
-                hideOverflow: '='
+                hideOverflow: '=',
+                onThumbClick: '&'
             },
             controller: [
                 '$scope',
@@ -152,10 +153,15 @@
                 };
 
                 scope.openGallery = function (i) {
+                    if (scope.onThumbClick({ index: i })) {
+                      return
+                    } // thumbnail click callback
+
                     if (typeof i !== undefined) {
                         scope.index = i;
                         showImage(scope.index);
                     }
+
                     scope.opened = true;
                     if (scope.hideOverflow) {
                         $('body').css({overflow: 'hidden'});
