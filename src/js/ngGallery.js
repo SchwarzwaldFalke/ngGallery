@@ -63,7 +63,8 @@
                 images: '=',
                 thumbsNum: '@',
                 hideOverflow: '=',
-                deleteIcons: '@'
+                deleteIcons: '@',
+                onDelete: '&' // on delete callback
             },
             controller: [
                 '$scope',
@@ -137,6 +138,16 @@
                 scope.showDeleteIcons = function () {
                   if (scope.deleteIcons == 'false') return
                   return scope.deleteIcons
+                }
+
+                scope.deleteImage = function () {
+                  if (scope.images[scope.index] == null) return
+                  var image = scope.images[scope.index];
+                  if (scope.images.splice(scope.index, 1)) {
+                    if (scope.images.length == 0) return scope.closeGallery()
+                    scope.changeImage((scope.images.length - 1));
+                    scope.onDelete(); // onDelete callback
+                  }
                 }
 
                 scope.changeImage = function (i) {
