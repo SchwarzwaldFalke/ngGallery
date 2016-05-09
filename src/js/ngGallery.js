@@ -30,7 +30,8 @@
         // Set the default template
         $templateCache.put(template_url,
             '<div class="{{ baseClass }}">' +
-            '  <div ng-repeat="i in images">' +
+            '  <div ng-repeat="i in images" class="ng-gallery-thumbs">' +
+            '    <a class="delete-icon" ng-click="deleteImage()" ng-show="showDeleteIcons()"><i class="fa fa-trash"></i></a>' +
             '    <img ng-src="{{ i.thumb }}" class="{{ thumbClass }}" ng-click="openGallery($index)" alt="Image {{ $index + 1 }}" />' +
             '  </div>' +
             '</div>' +
@@ -143,10 +144,13 @@
                 scope.deleteImage = function () {
                   if (scope.images[scope.index] == null) return
                   var image = scope.images[scope.index];
-                  if (scope.images.splice(scope.index, 1)) {
-                    if (scope.images.length == 0) return scope.closeGallery()
-                    scope.changeImage((scope.images.length - 1));
-                    scope.onDelete(); // onDelete callback
+
+                  if (confirm('Are you sure you want to delete ' + (image.name || 'this image') + '?')) {
+                    if (scope.images.splice(scope.index, 1)) {
+                      if (scope.images.length == 0) return scope.closeGallery()
+                      scope.changeImage((scope.images.length - 1));
+                      scope.onDelete(); // onDelete callback
+                    }
                   }
                 }
 

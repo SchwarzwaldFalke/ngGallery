@@ -29,6 +29,13 @@ img.ng-thumb {
   -webkit-user-drag: none;
 }
 
+.ng-gallery-thumbs .delete-icon {
+  cursor: pointer;
+  color: white;
+  position: absolute;
+  padding: 5px;
+}
+
 .ng-gallery-content {
   position: fixed;
   top: 0;
