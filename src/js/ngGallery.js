@@ -146,10 +146,10 @@
                   var image = scope.images[i];
 
                   if (confirm('Are you sure you want to delete ' + (image.name || 'this image') + '?')) {
+                    scope.onDelete({ image: image }); // onDelete callback
                     if (scope.images.splice(i, 1)) {
                       if (scope.images.length == 0) return scope.closeGallery()
                       scope.changeImage((scope.images.length - 1));
-                      scope.onDelete({ image: image }); // onDelete callback
                     }
                   }
                 }
