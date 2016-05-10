@@ -31,7 +31,7 @@
         $templateCache.put(template_url,
             '<div class="{{ baseClass }}">' +
             '  <div ng-repeat="i in images" class="ng-gallery-thumbs">' +
-            '    <a class="delete-icon" ng-click="deleteImage()" ng-show="showDeleteIcons()"><i class="fa fa-trash"></i></a>' +
+            '    <a class="delete-icon" ng-click="deleteImage()" ng-show="showDeleteIcons()"><i class="fa fa-times"></i></a>' +
             '    <img ng-src="{{ i.thumb }}" class="{{ thumbClass }}" ng-click="openGallery($index)" alt="Image {{ $index + 1 }}" />' +
             '  </div>' +
             '</div>' +

@@ -29,11 +29,20 @@ img.ng-thumb {
   -webkit-user-drag: none;
 }
 
+.ng-gallery-thumbs:hover .delete-icon {
+  visibility: visible;
+  opacity: 1;
+}
+
 .ng-gallery-thumbs .delete-icon {
   cursor: pointer;
   color: white;
   position: absolute;
-  padding: 5px;
+  padding: 3px;
+  margin-left: 31px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.1s;
 }
 
 .ng-gallery-content {
