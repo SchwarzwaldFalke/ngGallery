@@ -149,7 +149,7 @@
                     if (scope.images.splice(i, 1)) {
                       if (scope.images.length == 0) return scope.closeGallery()
                       scope.changeImage((scope.images.length - 1));
-                      scope.onDelete(); // onDelete callback
+                      scope.onDelete({ image: image }); // onDelete callback
                     }
                   }
                 }
