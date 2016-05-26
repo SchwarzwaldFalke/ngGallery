@@ -65,7 +65,9 @@
                 thumbsNum: '@',
                 hideOverflow: '=',
                 deleteIcons: '@',
-                onDelete: '&' // on delete callback
+                onDelete: '&', // on delete callback
+                customConfirm: '=', // Allows to use custom confirm
+                confirmDelete: '=' // User must return true or false to remove image from object
             },
             controller: [
                 '$scope',
@@ -145,13 +147,33 @@
                   if (scope.images[i] == null) return
                   var image = scope.images[i];
 
-                  if (confirm('Are you sure you want to delete ' + (image.name || 'this image') + '?')) {
-                    scope.onDelete({ image: image }); // onDelete callback
-                    if (scope.images.splice(i, 1)) {
-                      if (scope.images.length == 0) return scope.closeGallery()
-                      scope.changeImage((scope.images.length - 1));
+                  if (scope.customConfirm) {
+                      scope.onDelete({ image: image });
+
+                      scope.$watch('confirmDelete', function (newValue, oldValue) {
+                        if (angular.isDefined(newValue) && newValue === true){
+                            if (scope.images.splice(i, 1)) {
+                                if (scope.images.length == 0) {
+                                    return scope.closeGallery();
+                                }
+                                scope.changeImage((scope.images.length - 1));
+                            }
+                        }
+                      });
+
+                  } else {
+                    if (confirm('Are you sure you want to delete ' + (image.name || 'this image') + '?')) {
+                        scope.onDelete({ image: image }); // onDelete callback
+                        if (scope.images.splice(i, 1)) {
+                            if (scope.images.length == 0) {
+                                return scope.closeGallery();
+                            }
+                            scope.changeImage((scope.images.length - 1));
+                        }
                     }
                   }
+
+
                 }
 
                 scope.changeImage = function (i) {
