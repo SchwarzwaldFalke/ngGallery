@@ -6,7 +6,6 @@
 
 img.ng-thumb {
   height: 50px;
-  float: left;
   display: block;
   cursor: pointer;
   margin: 2px 2px 0 0;
@@ -28,18 +27,24 @@ img.ng-thumb {
   user-select: none;
   -webkit-user-drag: none;
 }
-
+.ng-gallery {
+  clear: both;
+}
+.ng-gallery > .ng-gallery-thumbs {
+  float: left;
+  position: relative;
+}
 .ng-gallery > .ng-gallery-thumbs:hover .delete-icon {
   visibility: visible;
   opacity: 1;
 }
-
 .ng-gallery > .ng-gallery-thumbs .delete-icon {
   cursor: pointer;
   color: white;
   position: absolute;
-  padding: 3px;
-  margin-left: 31px;
+  padding: 2px 6px;
+  right: 0;
+  top: 0;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.1s;
