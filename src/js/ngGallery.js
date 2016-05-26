@@ -31,7 +31,7 @@
         $templateCache.put(template_url,
             '<div class="{{ baseClass }}">' +
             '  <div ng-repeat="i in images" class="ng-gallery-thumbs">' +
-            '    <a class="delete-icon" ng-click="deleteImage($index)" ng-show="showDeleteIcons()"><i class="fa fa-times"></i></a>' +
+            '    <a class="delete-icon" ng-click="deleteNgGalleryImage($index)" ng-show="showDeleteIcons()"><i class="fa fa-times"></i></a>' +
             '    <img ng-src="{{ i.thumb }}" class="{{ thumbClass }}" ng-click="openGallery($index)" alt="Image {{ $index + 1 }}" />' +
             '  </div>' +
             '</div>' +
@@ -42,7 +42,7 @@
             '  <div class="image-controls">' +
             '    <a class="close-popup" ng-click="closeGallery()"><i class="fa fa-close"></i></a>' +
             '    <a href="{{getImageDownloadSrc()}}" target="_blank" ng-show="showImageDownloadButton()" class="download-image"><i class="fa fa-download"></i></a>' +
-            '    <a ng-click="deleteImage(index)" ng-show="showDeleteIcons()" class="delete-image"><i class="fa fa-trash"></i></a>' +
+            '    <a ng-click="deleteNgGalleryImage(index)" ng-show="showDeleteIcons()" class="delete-image"><i class="fa fa-trash"></i></a>' +
             '  </div>' +
             '  <a class="nav-left" ng-click="prevImage()"><i class="fa fa-angle-left"></i></a>' +
             '  <img ondragstart="return false;" draggable="false" ng-src="{{ img }}" ng-click="nextImage()" ng-show="!loading" class="effect" />' +
@@ -141,7 +141,7 @@
                   return scope.deleteIcons
                 }
 
-                scope.deleteImage = function (i) {
+                scope.deleteNgGalleryImage = function (i) {
                   if (scope.images[i] == null) return
                   var image = scope.images[i];
 
