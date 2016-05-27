@@ -90,6 +90,7 @@
                 var $body = $document.find('body');
                 var $thumbwrapper = angular.element(element[0].querySelectorAll('.ng-thumbnails-wrapper'));
                 var $thumbnails = angular.element(element[0].querySelectorAll('.ng-thumbnails'));
+                var confirmDeleteWatch;
 
                 scope.index = 0;
                 scope.opened = false;
@@ -150,12 +151,17 @@
                   if (scope.customConfirm) {
                       scope.onDelete({ image: image });
 
-                      scope.$watch('confirmDelete', function (newValue, oldValue) {
-                        if (angular.isDefined(newValue) && newValue === true){
+                      if (confirmDeleteWatch){
+                          confirmDeleteWatch();
+                      }
+
+                      confirmDeleteWatch = scope.$watch('confirmDelete', function (newValue, oldValue) {
+                          if (angular.isDefined(newValue) && newValue === true) {
                             if (scope.images.splice(i, 1)) {
                                 if (scope.images.length == 0) {
                                     return scope.closeGallery();
                                 }
+                                scope.confirmDelete = false;
                                 scope.changeImage((scope.images.length - 1));
                             }
                         }
