@@ -31,7 +31,7 @@
         $templateCache.put(template_url,
             '<div class="{{ baseClass }}">' +
             '  <div ng-repeat="i in images" class="ng-gallery-thumbs">' +
-            '    <a class="delete-icon" ng-click="deleteNgGalleryImage($index)" ng-show="showDeleteIcons()"><i class="fa fa-times"></i></a>' +
+            '    <a class="delete-icon" uib-tooltip="{{ deleteTooltipText }}" ng-click="deleteNgGalleryImage($index)" ng-show="showDeleteIcons()"><i class="fa fa-times"></i></a>' +
             '    <img ng-src="{{ i.thumb }}" class="{{ thumbClass }}" ng-click="openGallery($index)" alt="Image {{ $index + 1 }}" />' +
             '  </div>' +
             '</div>' +
@@ -67,7 +67,8 @@
                 deleteIcons: '@',
                 onDelete: '&', // on delete callback
                 customConfirm: '=', // Allows to use custom confirm
-                confirmDelete: '=' // User must return true or false to remove image from object
+                confirmDelete: '=', // User must return true or false to remove image from object
+                deleteTooltipText: '=', // Show hide delete tooltip
             },
             controller: [
                 '$scope',
