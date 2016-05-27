@@ -37,7 +37,9 @@ img.ng-thumb {
 .ng-gallery > .ng-gallery-thumbs:hover .delete-icon {
   visibility: visible;
   opacity: 1;
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
 }
+
 .ng-gallery > .ng-gallery-thumbs .delete-icon {
   cursor: pointer;
   color: white;
