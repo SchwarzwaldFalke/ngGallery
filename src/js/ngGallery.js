@@ -268,10 +268,11 @@
                             width = scope.thumbs_width,
                             item_scroll = parseInt(width / len, 10),
                             i = index + 1,
-                            s = Math.ceil(len / i);
-
-                        $thumbwrapper[0].scrollLeft = 0;
-                        $thumbwrapper[0].scrollLeft = i * item_scroll - (s * item_scroll);
+                            scrollAmount = (i * item_scroll) - (scope.thumbsNum * item_scroll) + item_scroll;
+                        
+                        if(scrollAmount <= width - (scope.thumbsNum * item_scroll)){
+                            $thumbwrapper[0].scrollLeft =  scrollAmount;
+                        }
                     }, 100);
                 };
 
