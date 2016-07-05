@@ -272,6 +272,8 @@
                         
                         if(scrollAmount <= width - (scope.thumbsNum * item_scroll)){
                             $thumbwrapper[0].scrollLeft =  scrollAmount;
+                        } else {
+                            $thumbwrapper[0].scrollLeft =  width - (scope.thumbsNum * item_scroll);
                         }
                     }, 100);
                 };
