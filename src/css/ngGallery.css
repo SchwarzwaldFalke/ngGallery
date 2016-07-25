@@ -6,7 +6,6 @@
 
 img.ng-thumb {
   height: 50px;
-  float: left;
   display: block;
   cursor: pointer;
   margin: 2px 2px 0 0;
@@ -28,18 +27,26 @@ img.ng-thumb {
   user-select: none;
   -webkit-user-drag: none;
 }
-
+.ng-gallery {
+  clear: both;
+}
+.ng-gallery > .ng-gallery-thumbs {
+  float: left;
+  position: relative; 
+}
 .ng-gallery > .ng-gallery-thumbs:hover .delete-icon {
   visibility: visible;
   opacity: 1;
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
 }
 
 .ng-gallery > .ng-gallery-thumbs .delete-icon {
   cursor: pointer;
   color: white;
   position: absolute;
-  padding: 3px;
-  margin-left: 31px;
+  padding: 2px 6px;
+  right: 0;
+  top: 0;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.1s;
@@ -59,6 +66,7 @@ img.ng-thumb {
   position: absolute;
   top: 20px;
   right: 0;
+  z-index: 2;
 }
 
 .ng-gallery-content > .image-controls > a.download-image,
@@ -82,17 +90,37 @@ img.ng-thumb {
 }
 
 .ng-gallery-content > a.nav-left {
-  position: fixed;
-  left: 30px;
-  top: 50%;
-  transform: translateY(-50%);
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  text-align: left;
 }
 
 .ng-gallery-content > a.nav-right {
-  position: fixed;
-  right: 30px;
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  text-align: right;
+}
+
+.ng-gallery-content > a.nav-left > i {
   top: 50%;
+  left: 30px;
   transform: translateY(-50%);
+  position: relative;
+}
+
+.ng-gallery-content > a.nav-right > i {
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  position: relative;
 }
 
 .ng-gallery-content > img {
@@ -140,13 +168,14 @@ img.ng-thumb {
   width: 400px;
   height: 70px;
   text-align: center;
-  position: fixed;
+  position: absolute;
   bottom: 20px;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
   overflow-x: hidden;
+  z-index: 2;
 }
 
 .ng-gallery-content > .ng-thumbnails-wrapper > .ng-thumbnails {
